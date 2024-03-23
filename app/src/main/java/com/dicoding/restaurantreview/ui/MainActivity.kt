@@ -46,7 +46,13 @@ class MainActivity : AppCompatActivity() {
             showLoading(it)
         }
         mainViewModel.snackbarText.observe(this) {
-            Snackbar.make(window.decorView.rootView, it, Snackbar.LENGTH_SHORT).show()
+            it.getContentIfNotHandled()?.let { snackBarText ->
+                Snackbar.make(
+                    window.decorView.rootView,
+                    snackBarText,
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
         }
 
         binding.btnSend.setOnClickListener { view ->
